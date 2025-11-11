@@ -19,6 +19,124 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <style>
+
+/* ======== Cura Loader ======== */
+#loader {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(135deg, #e3fff2, #c7fce5, #b0f3d0);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  font-family: 'Poppins', sans-serif;
+  transition: opacity 0.8s ease;
+}
+
+/* Fade-out effect */
+#loader.fade-out {
+  opacity: 0;
+}
+
+/* 🌿 Rotating Circle */
+.rotating-circle {
+  width: 120px;
+  height: 120px;
+  border: 6px solid rgba(0, 184, 118, 0.3);
+  border-top-color: #00b876;
+  border-radius: 50%;
+  animation: spin 1.5s linear infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px rgba(0, 184, 118, 0.3);
+}
+
+/* Inner glowing dot */
+.inner-circle {
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, #00b876, #008f5c);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 184, 118, 0.7);
+  animation: pulse 1.2s ease-in-out infinite alternate;
+}
+
+/* Rotating animation */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulse animation */
+@keyframes pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+}
+
+/* 🌿 Text */
+.loader-text {
+  text-align: center;
+  font-weight: 600;
+  color: #034d3a;
+  font-size: 2rem;
+  margin-top: 25px;
+  line-height: 1.5;
+  opacity: 0;
+  animation: fadeIn 1s ease forwards 0.8s;
+}
+
+.loader-text span {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00b876;
+}
+
+/* Smooth fade-in */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Progress bar container */
+.loader-bar {
+  width: 150px;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: 25px;
+  overflow: hidden;
+}
+
+/* Progress animation */
+.loader-progress {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, #00b876, #4be391);
+  border-radius: 5px;
+  animation: progress 2s ease-in-out forwards;
+}
+
+@keyframes progress {
+  0% {
+    width: 0;
+  }
+  100% {
+    width: 100%;
+  }
+}
+
+
   :root{
     --bg: url('images/hero-bg.png'); /* replace with your image */
     /* --overlay: rgba(0,0,0,0.4); */
@@ -1302,11 +1420,134 @@
 }
 
 
+.side-buttons {
+  position: fixed;
+  top: 40%;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 999;
+}
+
+.side-btn {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  background: #e0aa0f;
+  color: #222;
+  font-size: 20px;         /* increased font size */
+  font-weight: bold;
+  padding: 25px 12px;      /* larger clickable area */
+  border-radius: 10px 0 0 10px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.side-btn:hover {
+  background: #ffcc00;
+  color: #000;
+  transform: translateX(-10px) scale(1.1);
+}
+
+/* Optional: specific color for announcements */
+.announcement-btn {
+  background: linear-gradient(180deg, #f2b705, #d19a04);
+}
+
+/* Optional: specific color for admission enquiry */
+.enquiry-btn {
+  background: linear-gradient(180deg, #f2a654, #e98b2a);
+}
+
+
+
+  /* Card container */
+  #scrollCard {
+    position: fixed;
+    top: 50%;
+    left: -500px; /* start off-screen left */
+    transform: translateY(-50%);
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.4);
+    display: none;
+    z-index: 1000;
+    width: 500px;
+    max-width: 90%;
+    overflow: hidden;
+    animation: slideIn 0.8s forwards;
+  }
+
+  /* Card content layout */
+  #scrollCard .card-content {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+  }
+
+  #scrollCard img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+
+  #scrollCard .text {
+    margin-left: 20px;
+    flex: 1;
+  }
+
+  #scrollCard .text h2 {
+    margin: 0;
+    font-size: 20px;
+  }
+
+  #scrollCard .text p {
+    margin: 5px 0 10px 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  #scrollCard .text .contact {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.4;
+  }
+
+  #scrollCard .close-btn {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: rgb(235, 45, 45);
+    font-size: 30px;
+    cursor: pointer;
+  }
+
+  @keyframes slideIn {
+    from { left: -500px; opacity: 0; }
+    to { left: 50%; opacity: 1; transform: translate(-50%, -50%); }
+  }
+
+
 
 
 </style>
 </head>
 <body>
+
+<div id="loader">
+  <div class="rotating-circle">
+    <div class="inner-circle"></div>
+  </div>
+  <h1 class="loader-text">Welcome to<br><span>Cura Therapy Centre</span></h1>
+  <div class="loader-bar">
+    <div class="loader-progress"></div>
+  </div>
+</div>
 
 <!-- Navbar -->
 <nav class="custom-navbar">
@@ -1319,16 +1560,25 @@
     <button class="close-menu"><i class="fas fa-times"></i></button>
     <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
     <li><a href="#services"><i class="fas fa-hand-holding-heart"></i> Services</a></li>
+    <li><a href="menu.html"><i class="fas fa-clipboard-list"></i> Menu Card</a></li>
     <li><a href="#about"><i class="fas fa-user"></i> About</a></li>
     <li><a href="#pricing"><i class="fas fa-tags"></i> Package</a></li>
     <li><a href="#testimonials"><i class="fas fa-comment-dots"></i> Testimonials</a></li>
     <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
 
-    <li><a href="menu.html"><i class="fas fa-envelope"></i> Menu Card</a></li>
+    
   </ul>
 
   <button class="menu-toggle"><i class="fas fa-bars"></i></button>
 </nav>
+
+<!-- 🌿 Fixed Right Sidebar Buttons -->
+<div class="side-buttons">
+
+  <a href="menu.html" class="side-btn">View Menu</a>
+</div>
+
+
 
 <section id="home" class="hero py-5">
   <div class="container">
@@ -1750,6 +2000,29 @@ Got a 60-minute foot reflexology session — pure bliss! The staff is warm and w
   </section>
 
 
+  <div id="scrollCard">
+  <button class="close-btn">&times;</button>
+  <div class="card-content">
+    <img src="images/cura poster.jpg" alt="Therapy Image">
+    <div class="text">
+      <h2>Welcome to Cura Therapy Center</h2>
+      <p>25% Off Today!</p>
+      <div class="contact">
+        <strong>Contact Us:</strong><br>
+        CMC Eye Hospital Road, Dinakaran Stopping,<br>
+        Opp. New Fresh Market, Near Bajaj Showroom,<br>
+        First Floor Above MedPlus, Arni Road, Vellore<br>
+        <br>
+        <strong>Phone:</strong> +91 8610609373<br>
+        <strong>Email:</strong> curatherapycenter@gmail.com
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
   <!-- Scroll to Top Button -->
 <button id="scrollTopBtn" title="Go to top">
   ↑
@@ -1813,6 +2086,18 @@ First Floor Above MedPlus, Arni Road, Vellore
 
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+  window.addEventListener("load", function () {
+    setTimeout(() => {
+      document.getElementById("loader").classList.add("fade-out");
+      setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+      }, 800);
+    }, 2000); // 2 seconds for animation
+  });
+</script>
+
 <script>
   // Initialize AOS animations
   AOS.init({
@@ -1957,6 +2242,32 @@ First Floor Above MedPlus, Arni Road, Vellore
   mybutton.onclick = function() {
     window.scrollTo({top: 0, behavior: 'smooth'});
   };
+</script>
+
+
+<script>
+  const card = document.getElementById('scrollCard');
+  const closeBtn = card.querySelector('.close-btn');
+
+  // Check if already shown this session
+  if (!sessionStorage.getItem('cardShown')) {
+    let shown = false;
+
+    window.addEventListener('scroll', () => {
+      if (!shown && window.scrollY > 100) { // Trigger after 100px scroll
+        shown = true;
+        setTimeout(() => {
+          card.style.display = 'block';
+          sessionStorage.setItem('cardShown', 'true');
+        }, 1000); // 1 second delay
+      }
+    });
+  }
+
+  // Close button functionality
+  closeBtn.addEventListener('click', () => {
+    card.style.display = 'none';
+  });
 </script>
 
 
