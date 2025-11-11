@@ -1462,78 +1462,50 @@
 
 
 
+
   /* Card container */
   #scrollCard {
     position: fixed;
     top: 50%;
-    left: -500px; /* start off-screen left */
+    left: -600px; /* start off-screen left */
     transform: translateY(-50%);
-    background-color: #4CAF50;
-    color: white;
-    border-radius: 15px;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.4);
     display: none;
     z-index: 1000;
-    width: 500px;
+    width: 600px;
     max-width: 90%;
+    border-radius: 15px;
     overflow: hidden;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.4);
     animation: slideIn 0.8s forwards;
   }
 
-  /* Card content layout */
-  #scrollCard .card-content {
-    display: flex;
-    align-items: flex-start;
-    padding: 20px;
-  }
-
   #scrollCard img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10px;
-  }
-
-  #scrollCard .text {
-    margin-left: 20px;
-    flex: 1;
-  }
-
-  #scrollCard .text h2 {
-    margin: 0;
-    font-size: 20px;
-  }
-
-  #scrollCard .text p {
-    margin: 5px 0 10px 0;
-    font-size: 16px;
-    font-weight: bold;
-  }
-
-  #scrollCard .text .contact {
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 1.4;
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 15px;
   }
 
   #scrollCard .close-btn {
     position: absolute;
-    top: 6px;
-    right: 10px;
-    background: transparent;
+    top: 10px;
+    right: 15px;
+    background: rgba(0,0,0,0.5);
     border: none;
-    color: rgb(235, 45, 45);
-    font-size: 30px;
+    color: white;
+    font-size: 28px;
     cursor: pointer;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    line-height: 28px;
+    text-align: center;
   }
 
   @keyframes slideIn {
-    from { left: -500px; opacity: 0; }
-    to { left: 50%; opacity: 1; transform: translate(-50%, -50%); }
+    from { left: -600px; opacity: 0; }
+    to { left: 50%; opacity: 1; transform: translateX(-50%) translateY(-50%); }
   }
-
-
-
 
 </style>
 </head>
@@ -2000,24 +1972,9 @@ Got a 60-minute foot reflexology session — pure bliss! The staff is warm and w
   </section>
 
 
-  <div id="scrollCard">
+<div id="scrollCard">
   <button class="close-btn">&times;</button>
-  <div class="card-content">
-    <img src="images/cura poster.jpg" alt="Therapy Image">
-    <div class="text">
-      <h2>Welcome to Cura Therapy Center</h2>
-      <p>25% Off Today!</p>
-      <div class="contact">
-        <strong>Contact Us:</strong><br>
-        CMC Eye Hospital Road, Dinakaran Stopping,<br>
-        Opp. New Fresh Market, Near Bajaj Showroom,<br>
-        First Floor Above MedPlus, Arni Road, Vellore<br>
-        <br>
-        <strong>Phone:</strong> +91 8610609373<br>
-        <strong>Email:</strong> curatherapycenter@gmail.com
-      </div>
-    </div>
-  </div>
+  <img src="images/cura poster.jpg" alt="Cura Therapy Poster">
 </div>
 
 
@@ -2249,12 +2206,11 @@ First Floor Above MedPlus, Arni Road, Vellore
   const card = document.getElementById('scrollCard');
   const closeBtn = card.querySelector('.close-btn');
 
-  // Check if already shown this session
+  // Show card once per session after scroll
   if (!sessionStorage.getItem('cardShown')) {
     let shown = false;
-
     window.addEventListener('scroll', () => {
-      if (!shown && window.scrollY > 100) { // Trigger after 100px scroll
+      if (!shown && window.scrollY > 100) {
         shown = true;
         setTimeout(() => {
           card.style.display = 'block';
